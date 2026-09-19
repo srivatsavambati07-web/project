@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
@@ -11,6 +11,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors({
+  origin: [
+    'https://project-cwbqu9f0o-srivatsavambati07-web.vercel.app',
+    'https://project-pi-seven-77.vercel.app',
+    'http://localhost:5173'
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
 const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '10mb' }));
