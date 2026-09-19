@@ -1,0 +1,6 @@
+{
+  "name": "AccessGov – Government Accessibility Intelligence Platform",
+  "description": "AI-powered accessibility intelligence for Indian government websites (.gov.in / .nic.in) evaluating against WCAG 2.2 and GIGW 3.0 criteria with Citizen Journey mapping, task-aware priority scoring, and plain-language explanations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
