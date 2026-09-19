@@ -21,6 +21,7 @@ import { KeyboardReplayModal } from './components/KeyboardReplayModal';
 import { ArchitectureModal } from './components/ArchitectureModal';
 import { Footer } from './components/Footer';
 import { CheckCircle2, History, ArrowRight, ShieldCheck, Globe } from 'lucide-react';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 export const App: React.FC = () => {
   // Theme state (supports both dark and light mode seamlessly)
@@ -70,14 +71,14 @@ export const App: React.FC = () => {
       try {
         setIsLoading(true);
         // Fetch benchmarks
-        const bmRes = await fetch('/api/benchmarks');
+        const bmRes = await fetch(`${API_URL}/api/benchmarks`);
         if (bmRes.ok) {
           const bmData = await bmRes.json();
           setBenchmarks(bmData);
         }
 
         // Fetch history or scan default
-        const histRes = await fetch('/api/history');
+        const histRes = await fetch(`${API_URL}/api/history`);
         if (histRes.ok) {
           const histData = await histRes.json();
           setScanHistory(histData);
@@ -90,7 +91,7 @@ export const App: React.FC = () => {
         }
 
         // Trigger scan with EPF India
-        const scanRes = await fetch('/api/scan', {
+        const scanRes = await fetch(`${API_URL}/api/scan`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: 'schemes.epfindia.gov.in' }),
@@ -119,7 +120,7 @@ export const App: React.FC = () => {
       setSelectedStage('all');
       setActiveTab('audit');
 
-      const response = await fetch('/api/scan', {
+      const response = await fetch(`${API_URL}/api/scan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
@@ -147,7 +148,7 @@ export const App: React.FC = () => {
   const handleRemediate = async (violationId: string) => {
     if (!scanResult) return;
     try {
-      const response = await fetch('/api/remediate-simulate', {
+      const response = await fetch(`${API_URL}/api/remediate-simulate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ scanId: scanResult.id, violationId }),
@@ -168,7 +169,7 @@ export const App: React.FC = () => {
   const handleRequestAiExplain = async (violation: AccessibilityViolation) => {
     try {
       setIsExplaining(true);
-      const response = await fetch('/api/explain', {
+      const response = await fetch(`${API_URL}/api/explain`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ violation }),
